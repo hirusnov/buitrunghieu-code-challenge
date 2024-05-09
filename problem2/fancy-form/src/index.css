@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Override antd css */
+.ant-input-number-input,
+.ant-input-number-input::placeholder {
+  font-size: 22px !important;
+  font-weight: bold !important;
+}
+
+.ant-input-number-input {
+  color: white !important;
+}
+
+.ant-input-number-input::placeholder {
+  color: #848E9C !important;
+}
+
+.ant-select-selector {
+  border-radius: 20px !important;
+  background-color: #282a36 !important;
+  color: white !important;
+}
+
+.ant-select-selection-item {
+  font-weight: bold;
+}
+
+.ant-select-item-option-content {
+  color: white;
+  font-weight: bold;
+}
+
+.ant-select-item-option-selected .ant-select-item-option-content {
+  color: #282a36 !important;
+}
