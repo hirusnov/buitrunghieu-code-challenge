@@ -12,15 +12,16 @@ const FancyForm: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false)
 
+  const getConvertRate = (
+    currency1ToUsdRate: number,
+    currency2ToUsdRate: number
+  ) => currency1ToUsdRate / currency2ToUsdRate
+
   const getConvertedAmount = (
     currency1Amount: number,
     currency1ToUsdRate: number,
     currency2ToUsdRate: number
-  ) => {
-    const usdAmount = currency1Amount * currency1ToUsdRate
-    const convertedAmount = usdAmount / currency2ToUsdRate
-    return convertedAmount
-  }
+  ) => currency1Amount * getConvertRate(currency1ToUsdRate, currency2ToUsdRate)
 
   const onConvertCurrency = (
     currency1Amount: number,
@@ -95,6 +96,9 @@ const FancyForm: FC = () => {
     })
   }
 
+  const getCurrency = (field: string, keyValue = 'currency') =>
+    formValues?.[field] && ' ' + JSON.parse(formValues[field])[keyValue]
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false)
@@ -121,11 +125,19 @@ const FancyForm: FC = () => {
               body: { backgroundColor: '#2B3139', color: 'white' },
             }}
           >
-            <p className="m-0 mb-3 text-right text-[#848e9c] font-bold">
-              Balance: 1
-              {formValues?.currencySelect1 &&
-                ' ' + JSON.parse(formValues.currencySelect1).currency}
-            </p>
+            <div className="flex justify-between text-[#848e9c] font-bold">
+              <p className="m-0 mb-5">
+                Balance: 1{getCurrency('currencySelect1')}
+              </p>
+              <p className="m-0 mb-5">
+                1 {getCurrency('currencySelect1')} &cong;
+                {getConvertRate(
+                  getCurrency('currencySelect1', 'price'),
+                  getCurrency('currencySelect2', 'price')
+                ).toFixed(9)}
+                {getCurrency('currencySelect2')}
+              </p>
+            </div>
             <div className="flex w-full">
               <Form.Item
                 name="currency1"
